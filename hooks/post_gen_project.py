@@ -12,6 +12,9 @@ if __name__ == '__main__':
     if '{{ cookiecutter.use_pypi_deployment_with_travis }}' != 'y':
         remove_file('travis_pypi_setup.py')
 
+    if '{{ cookiecutter.dockerized }}' != 'y':
+        remove_file('Dockerfile')
+
     if '{{ cookiecutter.create_author_file }}' != 'y':
         remove_file('AUTHORS.rst')
         remove_file('docs/authors.rst')

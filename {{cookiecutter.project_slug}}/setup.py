@@ -13,6 +13,16 @@ requirements = [
     {%- if cookiecutter.command_line_interface|lower == 'click' %}
     'Click>=6.0',
     {%- endif %}
+    {%- if cookiecutter.restful|lower == 'y' or cookiecutter.crossbar|lower == 'y' %}
+    'requests',
+    {%- endif %}
+    {%- if cookiecutter.crossbar|lower == 'y' %}
+    'autobahn',
+    {%- endif %}
+    {%- if cookiecutter.restful|lower == 'y' %}
+    'flask',
+    {%- endif %}
+    {%- endif %}
     # TODO: put package requirements here
 ]
 
