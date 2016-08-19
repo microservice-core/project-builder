@@ -22,7 +22,6 @@ requirements = [
     {%- if cookiecutter.restful|lower == 'y' %}
     'flask',
     {%- endif %}
-    {%- endif %}
     # TODO: put package requirements here
 ]
 

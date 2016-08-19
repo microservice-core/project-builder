@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import shutil
 
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
 
@@ -15,6 +16,17 @@ if __name__ == '__main__':
     if '{{ cookiecutter.dockerized }}' != 'y':
         remove_file('Dockerfile')
 
+    if '{{ cookiecutter.python }}' != 'y':
+        shutil.rmtree('{{ cookiecutter.project_slug }}')
+        remove_file('setup.py')
+        remove_file('requirements_dev.txt')
+        remove_file('MANIFEST.in')
+        remove_file('setup.cfg')
+        remove_file('travis_pypi_setup.py')
+        shutil.rmtree('tests')
+        remove_file('Makefile')
+        remove_file('CONTRIBUTING.rst')
+
     if '{{ cookiecutter.create_author_file }}' != 'y':
         remove_file('AUTHORS.rst')
         remove_file('docs/authors.rst')
@@ -25,3 +37,7 @@ if __name__ == '__main__':
 
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
+
+    if 'Click' != '{{ cookiecutter.command_line_interface }}':
+        shutil.rmtree(os.path.join('{{ cookiecutter.project_slug }}',
+            'commands'))
