@@ -10,18 +10,6 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    {%- if cookiecutter.command_line_interface|lower == 'click' %}
-    'Click>=6.0',
-    {%- endif %}
-    {%- if cookiecutter.restful|lower == 'y' or cookiecutter.crossbar|lower == 'y' %}
-    'requests',
-    {%- endif %}
-    {%- if cookiecutter.crossbar|lower == 'y' %}
-    'autobahn',
-    {%- endif %}
-    {%- if cookiecutter.restful|lower == 'y' %}
-    'flask',
-    {%- endif %}
     # TODO: put package requirements here
 ]
 
@@ -38,38 +26,32 @@ test_requirements = [
 } %}
 
 setup(
-    name='{{ cookiecutter.project_slug }}',
-    version='{{ cookiecutter.version }}',
-    description="{{ cookiecutter.project_short_description }}",
+    name='{{ project_slug }}',
+    version='{{ version }}',
+    description="{{ project_short_description }}",
     long_description=readme + '\n\n' + history,
-    author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
-    author_email='{{ cookiecutter.email }}',
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
+    author="{{ author.replace('\"', '\\\"') }}",
+    author_email='{{ email }}',
+    url='https://github.com/{{ github_username }}/{{ project_slug }}',
     packages=[
-        '{{ cookiecutter.project_slug }}',
+        '{{ project_slug }}',
     ],
-    package_dir={'{{ cookiecutter.project_slug }}':
-                 '{{ cookiecutter.project_slug }}'},
-    {%- if 'no' not in cookiecutter.command_line_interface|lower %}
+    package_dir={'{{ project_slug }}':
+                 '{{ project_slug }}'},
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main'
+            '{{ project_name.replace(' ', '_')|lower }}=sources:main'
         ]
     },
-    {%- endif %}
     include_package_data=True,
     install_requires=requirements,
-{%- if cookiecutter.open_source_license in license_classifiers %}
-    license="{{ cookiecutter.open_source_license }}",
-{%- endif %}
+    license="{{ license }}",
     zip_safe=False,
-    keywords='{{ cookiecutter.project_slug }}',
+    keywords='{{ project_slug }}',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-{%- if cookiecutter.open_source_license in license_classifiers %}
-        '{{ license_classifiers[cookiecutter.open_source_license] }}',
-{%- endif %}
+        '{{ license_classifiers[open_source_license] }}',
         'Natural Language :: English',
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.6',
